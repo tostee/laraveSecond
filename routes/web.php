@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RolesControllers;
+use App\Http\Controllers\TypesControllers;
+use App\Http\Controllers\UsersControllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +17,39 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::redirect('/', '/home');
+Route::get('/login', [LoginController::class, 'form'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::middleware(['autentication'])->group(function () {
+    Route::get('/home', [HomeController::class,'index']
+    )->name('home');
+    Route::prefix('/users')->name('users.')->group(function () {
+            Route::get('/', [UsersControllers::class, 'index'])->name('index');
+            Route::get('/create', [UsersControllers::class, 'create'])->name('create');
+            Route::get('/edit/{id}', [UsersControllers::class, 'edit'])->name('edit');
+            Route::match(['POST', 'PUT', 'PATCH'],'/{id?}', [UsersControllers::class, 'save'])->name('save');
+            Route::delete('/{id}', [UsersControllers::class, 'delete'])->name('delete');
+    }
+    );
+    Route::prefix('/roles')->name('roles.')->group(function () {
+            Route::get('/', [RolesControllers::class, 'index'])->name('index');
+            Route::get('/create', [RolesControllers::class, 'create'])->name('create');
+            Route::get('/edit/{id}', [RolesControllers::class, 'edit'])->name('edit');
+            Route::match(['POST', 'PUT', 'PATCH'],'/{id?}', [RolesControllers::class, 'save'])->name('save');
+            Route::delete('/{id}', [RolesControllers::class, 'delete'])->name('delete');
+    }
+    );
+    Route::prefix('/types')->name('types.')->group(function () {
+        Route::get('/', [TypesControllers::class, 'index'])->name('index');
+        Route::get('/create', [TypesControllers::class, 'create'])->name('create');
+        Route::get('/edit/{id}', [TypesControllers::class, 'edit'])->name('edit');
+        Route::match(['POST', 'PUT', 'PATCH'],'/{id?}', [TypesControllers::class, 'save'])->name('save');
+        Route::delete('/{id}', [TypesControllers::class, 'delete'])->name('delete');
+}
+);
 });
+
+
