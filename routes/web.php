@@ -36,6 +36,7 @@ Route::middleware(['autentication'])->group(function () {
     );
     Route::prefix('/roles')->name('roles.')->group(function () {
             Route::get('/', [RolesControllers::class, 'index'])->name('index');
+            Route::middleware('json.request')->any('/get',[RolesControllers::class, 'get'])->name('get');
             Route::get('/create', [RolesControllers::class, 'create'])->name('create');
             Route::get('/edit/{id}', [RolesControllers::class, 'edit'])->name('edit');
             Route::match(['POST', 'PUT', 'PATCH'],'/{id?}', [RolesControllers::class, 'save'])->name('save');
@@ -50,6 +51,7 @@ Route::middleware(['autentication'])->group(function () {
         Route::delete('/{id}', [TypesControllers::class, 'delete'])->name('delete');
 }
 );
+
 });
 
 

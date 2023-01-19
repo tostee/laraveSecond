@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Response;
 
-class AutenticationMiddleware
+class JsonRequestMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,11 @@ class AutenticationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Session::has('user'))
-        return $next($request);
-        return redirect()->route('login');
+       
+        //if ($request->isJson()) {
+            return $next($request);
+        //}
+       // abort(400);
+        
     }
-    
 }

@@ -1,31 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>{{env('APP_NAME')}}</title>
-        <meta charset="utf-8" />
-    </head>
-    <body>
+    @extends('dashboard.generals.baselogin')
+    @section('main')
+    <div class="container mt-3">
+        
+            @if (Session::has('error'))
+            <div class="alert alert-danger">
+                {{Session::get('error')}}
+            </div> 
+            @endif
+       <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
         <form method="POST" action="{{route('login')}}">
             @csrf
-            
-                @if (Session::has('error'))
-                <label for="" style="color: red">{{Session::get('error')}}</label>
-                    
-                @endif
-            
-            <div>
+                <div class="form-group">
                 <label for="">User</label>
-                <p>
-                <input type="text" name="user" placeholder="User">
-                </p>
-            </div>
-            <div>
+                <input class="form-control" type="text" name="user" placeholder="User">
+                </div>
+                <div class="form-group">
                 <label for="">Password</label>
-                <p>
-                <input type="password" name="password" placeholder="Put Your password">
-                </p>
-            </div>
-            <button>Send</button>
+                <input class="form-control" type="password" name="password" placeholder="Put Your password">
+                </div>
+            <button class="btn btn-primary mt-3 pt-1">Send</button>
         </form>
-    </body>
-</html>
+    </div>
+    </div>
+    </div>
+        @endsection
+ 
