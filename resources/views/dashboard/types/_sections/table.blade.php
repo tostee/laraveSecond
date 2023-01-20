@@ -1,4 +1,5 @@
-<table border="1">
+<div class="table-responsive mt-3">
+<table class="table" border="1">
     <thead>
         <tr>
             <th>Id</th>
@@ -16,3 +17,4 @@
         @endforeach
     </tbody>
 </table>
+</div>
