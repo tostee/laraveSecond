@@ -15,7 +15,9 @@ class HomeController extends Controller
     }
     public function index()
     {
-        $this->_repository->HelloWorld();
-        return view('dashboard.index');
+        $breadcrumb = 'bHome';
+        return view('dashboard.index',[
+            'breadcrumb' => $breadcrumb
+        ]);
     }
 }

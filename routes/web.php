@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RolesControllers;
 use App\Http\Controllers\TypesControllers;
 use App\Http\Controllers\UsersControllers;
+use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::redirect('/', '/home');
+Route::get('/qwerty',[DatabaseController::class,'index']);
+Route::view('/example', 'welcome');
 Route::get('/login', [LoginController::class, 'form'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
@@ -51,6 +55,7 @@ Route::middleware(['autentication'])->group(function () {
         Route::delete('/{id}', [TypesControllers::class, 'delete'])->name('delete');
 }
 );
+
 
 });
 

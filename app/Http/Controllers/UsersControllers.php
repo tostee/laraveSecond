@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class UsersControllers extends Controller
-{private $users = [
+{
+    private $breadcrumb = 'bUsers';
+    private $users = [
     [
         'id' => 1,
         'name' => 'Renier',
@@ -30,7 +32,8 @@ class UsersControllers extends Controller
 ];
 public function index(){
     $users =  $this->users;
-    return view('dashboard.users.index',['users'=>$users]);
+    
+    return view('dashboard.users.index',['users'=>$users, 'breadcrumb'=>$this->breadcrumb]);
 }
 public function create(){
 
@@ -38,11 +41,12 @@ public function create(){
     return view('dashboard.users.form',[
         'id'=>$id,
         'user' => null,
+        'breadcrumb'=>$this->breadcrumb
 ]);
 }
 public function edit($id){
     $users = $this->_getUser($id);
-    return view('dashboard.users.form',['id'=>$id,'user'=>$users]);
+    return view('dashboard.users.form',['id'=>$id,'user'=>$users,'breadcrumb' => $this->breadcrumb]);
 }
 public function save(Request $request, $id = null){
     $input = $request->all();

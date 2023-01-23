@@ -28,6 +28,7 @@ class LoginController extends Controller
             'user' => 'root',
             'password' => 'root'
         ];
+        
         if (!isset($data['user']) || !isset($data['password']))
             return false;
 

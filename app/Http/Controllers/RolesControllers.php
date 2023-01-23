@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 class RolesControllers extends Controller
 {
+    private $breadcrumb = 'bRoles';
     public function index(){
+      
         $roles =  [
             [
                 'id' => 1,
@@ -27,7 +29,7 @@ class RolesControllers extends Controller
                 'updated_at' => '2022-01-01 00:00:00',
             ],
         ];
-        return view('dashboard.roles.index',['roles'=>$roles]);
+        return view('dashboard.roles.index',['roles'=>$roles, 'breadcrumb'=>$this->breadcrumb]);
     }
 
     public function get(Request $request)
@@ -53,11 +55,12 @@ class RolesControllers extends Controller
         return view('dashboard.roles.form',[
             'id'=>$id,
             'role' => null,
+             'breadcrumb'=>$this->breadcrumb
     ]);
     }
     public function edit($id){
         $role = $this->_getRole($id);
-        return view('dashboard.roles.form',['id'=>$id,'role'=>$role]);
+        return view('dashboard.roles.form',['id'=>$id,'role'=>$role, 'breadcrumb'=>$this->breadcrumb]);
     }
     public function save(Request $request, $id = null){
         $input = $request->all();

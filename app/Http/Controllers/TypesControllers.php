@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class TypesControllers extends Controller
 {
+   private $breadcrumb = 'bTypes';
     private $types = [
         [
             'id' => 1,
@@ -28,7 +29,8 @@ class TypesControllers extends Controller
     ];
     public function index(){
         $types =  $this->types;
-        return view('dashboard.types.index',['types'=>$types]);
+       
+        return view('dashboard.types.index',['types'=>$types, 'breadcrumb'=>$this->breadcrumb]);
     }
     public function create(){
 
@@ -36,11 +38,12 @@ class TypesControllers extends Controller
         return view('dashboard.types.form',[
             'id'=>$id,
             'type' => null,
+            'breadcrumb'=>$this->breadcrumb
     ]);
     }
     public function edit($id){
         $types = $this->_getType($id);
-        return view('dashboard.types.form',['id'=>$id,'type'=>$types]);
+        return view('dashboard.types.form',['id'=>$id,'type'=>$types, 'breadcrumb'=>$this->breadcrumb]);
     }
     public function save(Request $request, $id = null){
         $input = $request->all();
